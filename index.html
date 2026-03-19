@@ -117,7 +117,7 @@
                 card.className = 'card';
                 card.innerHTML = `
                     <div class="card-poster">
-                        <img src="${item.Poster}" alt="${item.Title}" loading="lazy" onerror="this.src='https://placehold.co/300x445/1a1a1a/666?text=No+Poster'">
+                        <img src="${item.Poster}" alt="${item.Title}" loading="lazy" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/300x445/1a1a1a/666?text=No+Poster'">
                         <span class="card-type ${item.Type}">${item.Type}</span>
                     </div>
                     <div class="card-info">
