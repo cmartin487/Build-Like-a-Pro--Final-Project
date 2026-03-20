@@ -59,30 +59,25 @@
     </footer>
 
     <script>
-        const RAW_DATA = {
-            "Search": [
-                { "Title": "Captain Marvel", "Year": "2019", "imdbID": "tt4154664", "Type": "movie", "Poster": "https://m.media-amazon.com/images/M/MV5BZDI1NGU2ODAtNzBiNy00MWY5LWIyMGEtZjUxZjUwZmZiNjBlXkEyXkFqcGc@._V1_SX300.jpg" },
-                { "Title": "Ms. Marvel", "Year": "2022", "imdbID": "tt10857164", "Type": "series", "Poster": "https://m.media-amazon.com/images/M/MV5BNzlkNjBmOWUtOTgzZS00OWIzLThkNWEtZTg5MGY2ODAyYzZjXkEyXkFqcGc@._V1_SX300.jpg" },
-                { "Title": "Marvel Zombies", "Year": "2025", "imdbID": "tt16027014", "Type": "series", "Poster": "https://m.media-amazon.com/images/M/MV5BNGNkYjI3ZWUtN2MzMS00NDg5LWE5MmYtZGE4Zjc0OGVhODM4XkEyXkFqcGc@._V1_SX300.jpg" },
-                { "Title": "Marvel One-Shot: Agent Carter", "Year": "2013", "imdbID": "tt3067038", "Type": "movie", "Poster": "https://m.media-amazon.com/images/M/MV5BZDIwZTM4M2QtMWFhYy00N2VmLWFlMjItMzI3NjBjYTc0OTMxXkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg" },
-                { "Title": "Marvel One-Shot: All Hail the King", "Year": "2014", "imdbID": "tt3438640", "Type": "movie", "Poster": "https://m.media-amazon.com/images/M/MV5BZGFkMTZkMDQtNzM4Yy00YWEwLTkzOWEtZTMyNDRlNmJhYWJhXkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg" },
-                { "Title": "Marvel One-Shot: Item 47", "Year": "2012", "imdbID": "tt2247732", "Type": "movie", "Poster": "https://m.media-amazon.com/images/M/MV5BMjNlMzAxNmQtOGEwZi00NTEyLWI0NWYtMTlhNmE2YTA3ZDVhXkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg" },
-                { "Title": "Marvel One-Shot: A Funny Thing Happened on the Way to Thor's Hammer", "Year": "2011", "imdbID": "tt2011109", "Type": "movie", "Poster": "https://m.media-amazon.com/images/M/MV5BYmVlYTg3N2QtMWM2OS00YWQyLWI2M2MtMDc0ZjBkZjk1MTY3XkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg" },
-                { "Title": "Marvel One-Shot: The Consultant", "Year": "2011", "imdbID": "tt2011118", "Type": "movie", "Poster": "https://m.media-amazon.com/images/M/MV5BNGE4YjU5MDAtYzYzMC00M2RlLTk0NDgtNDU1MjgyMGI0MjI3XkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg" },
-                { "Title": "Marvel Studios: Legends", "Year": "2021–2023", "imdbID": "tt13650480", "Type": "series", "Poster": "https://m.media-amazon.com/images/M/MV5BMzgzYjM4NTUtOTlhMS00MTJmLTkxZjgtYWY4NjI1ZWRiNGU4XkEyXkFqcGc@._V1_SX300.jpg" },
-                { "Title": "Marvel Studios: Assembled", "Year": "2021–", "imdbID": "tt14094206", "Type": "series", "Poster": "https://m.media-amazon.com/images/M/MV5BNzU0ODgxNDUtMjhlYy00M2E3LTk3OGQtNjRhMzU5MTY4NWE2XkEyXkFqcGc@._V1_SX300.jpg" }
-            ],
-            "totalResults": "337",
-            "Response": "True"
-        };
+        const API_KEY = '533e255c';
+        const DEFAULT_QUERY = 'marvel';
 
-        // Parse the first year from strings like "2021–2023" or "2021–"
+        const DEFAULT_DATA = [
+            { "Title": "Captain Marvel", "Year": "2019", "imdbID": "tt4154664", "Type": "movie", "Poster": "https://m.media-amazon.com/images/M/MV5BZDI1NGU2ODAtNzBiNy00MWY5LWIyMGEtZjUxZjUwZmZiNjBlXkEyXkFqcGc@._V1_SX300.jpg" },
+            { "Title": "Ms. Marvel", "Year": "2022", "imdbID": "tt10857164", "Type": "series", "Poster": "https://m.media-amazon.com/images/M/MV5BNzlkNjBmOWUtOTgzZS00OWIzLThkNWEtZTg5MGY2ODAyYzZjXkEyXkFqcGc@._V1_SX300.jpg" },
+            { "Title": "Marvel Zombies", "Year": "2025", "imdbID": "tt16027014", "Type": "series", "Poster": "https://m.media-amazon.com/images/M/MV5BNGNkYjI3ZWUtN2MzMS00NDg5LWE5MmYtZGE4Zjc0OGVhODM4XkEyXkFqcGc@._V1_SX300.jpg" },
+            { "Title": "Marvel One-Shot: Agent Carter", "Year": "2013", "imdbID": "tt3067038", "Type": "movie", "Poster": "https://m.media-amazon.com/images/M/MV5BZDIwZTM4M2QtMWFhYy00N2VmLWFlMjItMzI3NjBjYTc0OTMxXkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg" },
+            { "Title": "Marvel One-Shot: All Hail the King", "Year": "2014", "imdbID": "tt3438640", "Type": "movie", "Poster": "https://m.media-amazon.com/images/M/MV5BZGFkMTZkMDQtNzM4Yy00YWEwLTkzOWEtZTMyNDRlNmJhYWJhXkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg" },
+            { "Title": "Marvel One-Shot: Item 47", "Year": "2012", "imdbID": "tt2247732", "Type": "movie", "Poster": "https://m.media-amazon.com/images/M/MV5BMjNlMzAxNmQtOGEwZi00NTEyLWI0NWYtMTlhNmE2YTA3ZDVhXkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg" },
+            { "Title": "Marvel One-Shot: A Funny Thing Happened on the Way to Thor's Hammer", "Year": "2011", "imdbID": "tt2011109", "Type": "movie", "Poster": "https://m.media-amazon.com/images/M/MV5BYmVlYTg3N2QtMWM2OS00YWQyLWI2M2MtMDc0ZjBkZjk1MTY3XkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg" },
+            { "Title": "Marvel One-Shot: The Consultant", "Year": "2011", "imdbID": "tt2011118", "Type": "movie", "Poster": "https://m.media-amazon.com/images/M/MV5BNGE4YjU5MDAtYzYzMC00M2RlLTk0NDgtNDU1MjgyMGI0MjI3XkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg" },
+            { "Title": "Marvel Studios: Legends", "Year": "2021–2023", "imdbID": "tt13650480", "Type": "series", "Poster": "https://m.media-amazon.com/images/M/MV5BMzgzYjM4NTUtOTlhMS00MTJmLTkxZjgtYWY4NjI1ZWRiNGU4XkEyXkFqcGc@._V1_SX300.jpg" },
+            { "Title": "Marvel Studios: Assembled", "Year": "2021–", "imdbID": "tt14094206", "Type": "series", "Poster": "https://m.media-amazon.com/images/M/MV5BNzU0ODgxNDUtMjhlYy00M2E3LTk3OGQtNjRhMzU5MTY4NWE2XkEyXkFqcGc@._V1_SX300.jpg" }
+        ];
+
         function parseYear(yearStr) {
             return parseInt(yearStr.split(/[–\-]/)[0].trim(), 10);
         }
-
-        let currentSort = 'az';
-        let items = [...RAW_DATA.Search];
 
         const sortFns = {
             az:     (a, b) => a.Title.localeCompare(b.Title),
@@ -92,27 +87,25 @@
         };
 
         const searchInput = document.getElementById('search');
-        const clearBtn   = document.getElementById('clearBtn');
-        const sortSelect = document.getElementById('sortSelect');
+        const clearBtn    = document.getElementById('clearBtn');
+        const sortSelect  = document.getElementById('sortSelect');
+        const grid        = document.getElementById('grid');
+        const countEl     = document.getElementById('count');
+        const totalEl     = document.getElementById('total');
 
-        function getFiltered() {
-            const query = searchInput.value.trim().toLowerCase();
-            return query
-                ? items.filter(item => item.Title.toLowerCase().includes(query))
-                : [...items];
-        }
+        let currentItems = [...DEFAULT_DATA];
+        let debounceTimer = null;
 
         function renderGrid(data) {
-            const grid = document.getElementById('grid');
-            grid.innerHTML = '';
-
             if (data.length === 0) {
-                grid.innerHTML = '<p class="no-results">No titles match your search.</p>';
-                document.getElementById('count').textContent = 0;
+                grid.innerHTML = '<p class="no-results">No results found.</p>';
+                countEl.textContent = 0;
                 return;
             }
 
-            data.forEach(item => {
+            const sorted = [...data].sort(sortFns[sortSelect.value]);
+            grid.innerHTML = '';
+            sorted.forEach(item => {
                 const card = document.createElement('article');
                 card.className = 'card';
                 card.innerHTML = `
@@ -127,29 +120,58 @@
                 `;
                 grid.appendChild(card);
             });
-
-            document.getElementById('count').textContent = data.length;
+            countEl.textContent = data.length;
         }
 
-        function update() {
-            const filtered = getFiltered();
-            const sorted   = filtered.sort(sortFns[sortSelect.value]);
-            renderGrid(sorted);
-            clearBtn.style.display = searchInput.value ? 'flex' : 'none';
+        function showLoading() {
+            grid.innerHTML = '<p class="no-results">Searching…</p>';
         }
 
-        searchInput.addEventListener('input', update);
+        async function fetchResults(query) {
+            const url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=${API_KEY}`;
+            const res  = await fetch(url);
+            const data = await res.json();
+            return data.Response === 'True' ? data.Search : [];
+        }
+
+        function onSearchInput() {
+            const query = searchInput.value.trim();
+            clearBtn.style.display = query ? 'flex' : 'none';
+
+            clearTimeout(debounceTimer);
+
+            if (!query) {
+                currentItems = [...DEFAULT_DATA];
+                totalEl.textContent = '337';
+                renderGrid(currentItems);
+                return;
+            }
+
+            debounceTimer = setTimeout(async () => {
+                showLoading();
+                try {
+                    const results = await fetchResults(query);
+                    currentItems = results;
+                    totalEl.textContent = results.length;
+                    renderGrid(currentItems);
+                } catch (err) {
+                    grid.innerHTML = '<p class="no-results">Error fetching results. Try again.</p>';
+                }
+            }, 400);
+        }
+
+        searchInput.addEventListener('input', onSearchInput);
 
         clearBtn.addEventListener('click', () => {
             searchInput.value = '';
-            update();
+            onSearchInput();
             searchInput.focus();
         });
 
-        sortSelect.addEventListener('change', update);
+        sortSelect.addEventListener('change', () => renderGrid(currentItems));
 
-        // Initial render
-        update();
+        // Initial render with default data
+        renderGrid(currentItems);
     </script>
 
 </body>
